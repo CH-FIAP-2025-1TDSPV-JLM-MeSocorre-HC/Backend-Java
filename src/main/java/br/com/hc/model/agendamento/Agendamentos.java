@@ -11,6 +11,10 @@ public abstract class Agendamentos {
     private String nomeProfissional;
     private Paciente paciente;
 
+    public Agendamentos() {
+        // construtor padrão (necessário para herança funcionar)
+    }
+
     public Agendamentos(Integer id, String medico, LocalDateTime dataHora, String nomeConsulta, String nomeProfissional, Paciente paciente) {
         this.id = id;
         this.medico = medico;
