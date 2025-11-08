@@ -1,4 +1,4 @@
-package br.com.hc.model.usuario;
+package br.com.hc.model.paciente;
 
 public class Medico {
     private String crm;

@@ -1,6 +1,6 @@
 package br.com.hc.dao;
 
-import br.com.hc.model.usuario.Paciente;
+import br.com.hc.model.paciente.Paciente;
 import br.com.hc.exception.HcException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;

@@ -1,6 +1,7 @@
 package br.com.hc.model.agendamento;
 
 import java.time.LocalDateTime;
+import br.com.hc.model.paciente.Paciente;
 
 public abstract class Agendamentos {
     private Integer id;
@@ -9,6 +10,7 @@ public abstract class Agendamentos {
     private LocalDateTime dataHora;
     private String nomeConsulta;
     private String nomeProfissional;
+    private Paciente paciente;
 
 
     public Integer getId() {

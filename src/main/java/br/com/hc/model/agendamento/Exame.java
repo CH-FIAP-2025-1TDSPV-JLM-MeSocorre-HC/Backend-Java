@@ -1,12 +1,14 @@
 package br.com.hc.model.agendamento;
 
 import java.time.LocalDateTime;
+import br.com.hc.model.paciente.Paciente;
 
 public class Exame {
     private int id;
     private String resultadoExame;
     private String tipo;
     private LocalDateTime diaHora;
+    private Paciente paciente;
 
     public Exame(int id, String resultadoExame, String tipo, LocalDateTime diaHora) {
         this.id = id;

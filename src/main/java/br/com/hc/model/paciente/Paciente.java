@@ -1,4 +1,4 @@
-package br.com.hc.model.usuario;
+package br.com.hc.model.paciente;
 
 public class Paciente {
     private int id;
