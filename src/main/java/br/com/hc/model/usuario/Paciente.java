@@ -1,23 +1,27 @@
 package br.com.hc.model.usuario;
 
 public class Paciente {
+    private int id;
     private String nome;
     private String cpf;
     private int idade;
+    private LoginSenha loginSenha;
 
-
-    public Paciente() {
-    }
-
-
-    public Paciente(String nome, String cpf, int idade) {
+    public Paciente(int id, String nome, String cpf, int idade, LoginSenha loginSenha) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.idade = idade;
-
+        this.loginSenha = loginSenha;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -43,26 +47,11 @@ public class Paciente {
         this.idade = idade;
     }
 
-
-    @Override
-    public String toString() {
-        return "Paciente{" +
-                "nome='" + nome + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", idade=" + idade +
-                '}';
+    public LoginSenha getLoginSenha() {
+        return loginSenha;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Paciente paciente = (Paciente) o;
-        return cpf.equals(paciente.cpf);
-    }
-
-    public int hashCode() {
-        return cpf.hashCode();
+    public void setLoginSenha(LoginSenha loginSenha) {
+        this.loginSenha = loginSenha;
     }
 }
