@@ -3,3 +3,11 @@
 !target/*-runner.jar
 !target/lib/*
 !target/quarkus-app/*
+
+!mvnw
+!mvnw.cmd
+!pom.xml
+!src/**
+!.mvn/**
+!target/**
+!Dockerfile
