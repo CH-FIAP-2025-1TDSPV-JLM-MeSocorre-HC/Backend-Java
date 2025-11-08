@@ -4,19 +4,23 @@ import br.com.hc.model.paciente.Paciente;
 import java.time.LocalDateTime;
 
 public class AgendamentoOnline extends Agendamentos {
-    private String link;
+    private String linkReuniao;
+
+    public AgendamentoOnline() {
+    }
 
     public AgendamentoOnline(Integer id, String medico, LocalDateTime dataHora,
                              String nomeConsulta, String nomeProfissional,
-                             Paciente paciente, String link) {
+                             Paciente paciente, String linkReuniao) {
         super(id, medico, dataHora, nomeConsulta, nomeProfissional, paciente);
-        if (link == null || link.isEmpty())
-            throw new IllegalArgumentException("Link é obrigatório.");
-        this.link = link;
+        this.linkReuniao = linkReuniao;
     }
 
-    public String getLink() {
-        return link;
+    public String getLinkReuniao() {
+        return linkReuniao;
+    }
+
+    public void setLinkReuniao(String linkReuniao) {
+        this.linkReuniao = linkReuniao;
     }
 }
-

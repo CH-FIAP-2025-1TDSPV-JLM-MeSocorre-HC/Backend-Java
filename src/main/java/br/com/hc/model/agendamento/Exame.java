@@ -1,28 +1,20 @@
 package br.com.hc.model.agendamento;
 
-import java.time.LocalDateTime;
 import br.com.hc.model.paciente.Paciente;
 
-public class Exame {
-    private int id;
+import java.time.LocalDateTime;
+
+public class Exame extends Agendamentos {
     private String resultadoExame;
     private String tipo;
-    private LocalDateTime diaHora;
-    private Paciente paciente;
 
-    public Exame(int id, String resultadoExame, String tipo, LocalDateTime diaHora) {
-        this.id = id;
+    public Exame() {
+    }
+
+    public Exame(Integer id, String medico, LocalDateTime dataHora, String nomeConsulta, String nomeProfissional, Paciente paciente, String resultadoExame, String tipo) {
+        super(id, medico, dataHora, nomeConsulta, nomeProfissional, paciente);
         this.resultadoExame = resultadoExame;
         this.tipo = tipo;
-        this.diaHora = diaHora;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getResultadoExame() {
@@ -39,14 +31,6 @@ public class Exame {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    public LocalDateTime getDiaHora() {
-        return diaHora;
-    }
-
-    public void setDiaHora(LocalDateTime diaHora) {
-        this.diaHora = diaHora;
     }
 }
 
