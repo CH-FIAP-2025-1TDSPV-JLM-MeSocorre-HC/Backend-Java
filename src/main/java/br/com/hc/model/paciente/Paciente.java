@@ -7,6 +7,9 @@ public class Paciente {
     private int idade;
     private LoginSenha loginSenha;
 
+    public Paciente() {
+    }
+
     public Paciente(int id, String nome, String cpf, int idade, LoginSenha loginSenha) {
         this.id = id;
         this.nome = nome;

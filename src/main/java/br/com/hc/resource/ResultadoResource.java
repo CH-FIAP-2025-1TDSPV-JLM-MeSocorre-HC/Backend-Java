@@ -1,8 +1,7 @@
 package br.com.hc.resource;
 
 import br.com.hc.dao.AgendamentosDao;
-import br.com.hc.dto.DetalhesAgendamentosDto;
-import br.com.hc.dto.DetalhesAgendamentosDto;
+import br.com.hc.dto.agendamentos.DetalhesAgendamentosDto;
 import br.com.hc.model.agendamento.Exame;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;

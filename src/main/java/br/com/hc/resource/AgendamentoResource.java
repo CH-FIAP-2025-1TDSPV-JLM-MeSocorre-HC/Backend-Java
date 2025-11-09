@@ -2,8 +2,8 @@ package br.com.hc.resource;
 
 import br.com.hc.dao.AgendamentosDao;
 import br.com.hc.dao.PacienteDao;
-import br.com.hc.dto.CadastroAgendamentoDto;
-import br.com.hc.dto.DetalhesAgendamentosDto;
+import br.com.hc.dto.agendamentos.CadastroAgendamentoDto;
+import br.com.hc.dto.agendamentos.DetalhesAgendamentosDto;
 import br.com.hc.exception.EntidadeNaoEncontradaException;
 import br.com.hc.model.agendamento.*;
 import br.com.hc.model.paciente.Paciente;

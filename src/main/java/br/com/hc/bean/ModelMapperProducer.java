@@ -1,7 +1,7 @@
 package br.com.hc.bean;
 
-import br.com.hc.dto.CadastroAgendamentoDto;
-import br.com.hc.dto.DetalhesAgendamentosDto;
+import br.com.hc.dto.agendamentos.CadastroAgendamentoDto;
+import br.com.hc.dto.agendamentos.DetalhesAgendamentosDto;
 import br.com.hc.model.agendamento.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

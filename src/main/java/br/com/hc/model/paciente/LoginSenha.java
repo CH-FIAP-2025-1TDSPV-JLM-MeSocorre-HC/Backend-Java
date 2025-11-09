@@ -1,21 +1,21 @@
 package br.com.hc.model.paciente;
 
 public class LoginSenha {
-    private int id;
+    private Integer id;
     private String usuario;
     private String senha;
 
-    public LoginSenha(int id, String usuario, String senha) {
+    public LoginSenha(Integer id, String usuario, String senha) {
         this.id = id;
         this.usuario = usuario;
         this.senha = senha;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

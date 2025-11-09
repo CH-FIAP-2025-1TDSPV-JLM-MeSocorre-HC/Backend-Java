@@ -1,31 +1,25 @@
-package br.com.hc.dto;
+package br.com.hc.dto.agendamentos;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-public class CadastroAgendamentoDto {
+public class DetalhesAgendamentosDto {
 
-    @NotBlank(message = "O tipo é obrigatório")
-    private String tipo; // ONLINE, PRESENCIAL, EXAME
-
-    @NotNull(message = "O paciente é obrigatório")
+    private Integer id;
+    private String tipo;
     private Integer pacienteId;
-
-    @NotNull(message = "A data e hora são obrigatórias")
     private LocalDateTime dataHora;
-
     private String nomeConsulta;
     private String nomeProfissional;
     private String medico;
-
-    // Campos específicos para cada tipo
     private String link;
     private String endereco;
     private String tipoExame;
     private String resultadoExame;
 
     // Getters e Setters
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
+
     public String getTipo() { return tipo; }
     public void setTipo(String tipo) { this.tipo = tipo; }
 
