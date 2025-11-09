@@ -128,5 +128,4 @@ public class AgendamentosDao {
         ag.setMedico(rs.getString("medico"));
         return ag;
     }
-
 }
