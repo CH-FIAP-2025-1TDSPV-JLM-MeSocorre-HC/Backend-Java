@@ -4,7 +4,9 @@ import br.com.hc.model.paciente.Paciente;
 import java.time.LocalDateTime;
 
 public class AgendamentoPresencial extends Agendamentos {
-    private String endereco;
+    private final String endereco = "Rua Dr. Ovídio Pires de Campos, 471";
+    private Integer sala;
+    private Integer andar;
 
     public AgendamentoPresencial() {
         setTipo("PRESENCIAL");
@@ -12,17 +14,30 @@ public class AgendamentoPresencial extends Agendamentos {
 
     public AgendamentoPresencial(Integer id, String medico, LocalDateTime dataHora,
                                  String nomeConsulta, String nomeProfissional,
-                                 Paciente paciente, String endereco) {
+                                 Paciente paciente, Integer sala, Integer andar) {
         super(id, medico, dataHora, nomeConsulta, nomeProfissional, paciente);
         setTipo("PRESENCIAL");
-        this.endereco = endereco;
+        this.sala = sala;
+        this.andar = andar;
     }
 
     public String getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public Integer getSala() {
+        return sala;
+    }
+
+    public void setSala(Integer sala) {
+        this.sala = sala;
+    }
+
+    public Integer getAndar() {
+        return andar;
+    }
+
+    public void setAndar(Integer andar) {
+        this.andar = andar;
     }
 }

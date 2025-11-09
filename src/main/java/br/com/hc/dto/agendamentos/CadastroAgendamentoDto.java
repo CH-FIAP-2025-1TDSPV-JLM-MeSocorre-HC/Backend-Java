@@ -22,8 +22,27 @@ public class CadastroAgendamentoDto {
     // Campos específicos para cada tipo
     private String link;
     private String endereco;
+    private Integer sala;
+    private Integer andar;
     private String tipoExame;
     private String resultadoExame;
+
+    public Integer getSala() {
+        return sala;
+    }
+
+    public void setSala(Integer sala) {
+        this.sala = sala;
+    }
+
+    public Integer getAndar() {
+        return andar;
+    }
+
+    public void setAndar(Integer andar) {
+        this.andar = andar;
+    }
+
 
     // Getters e Setters
     public String getTipo() { return tipo; }

@@ -16,7 +16,7 @@ public class ModelMapperProducer {
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
 
-        // Mapeamento mais rígido (para evitar confusões de nomes)
+        // Configuração mais rígida (evita mapeamentos automáticos errados)
         modelMapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.STRICT)
                 .setSkipNullEnabled(true);
@@ -25,12 +25,18 @@ public class ModelMapperProducer {
         // DTO -> ENTIDADE (CadastroAgendamentoDto → modelos)
         // ================================================
 
+        // Mapeamento específico para agendamento online
         modelMapper.typeMap(CadastroAgendamentoDto.class, AgendamentoOnline.class)
                 .addMapping(CadastroAgendamentoDto::getLink, AgendamentoOnline::setLinkReuniao);
 
+        // Mapeamento para agendamento presencial
         modelMapper.typeMap(CadastroAgendamentoDto.class, AgendamentoPresencial.class)
-                .addMapping(CadastroAgendamentoDto::getEndereco, AgendamentoPresencial::setEndereco);
+                .addMappings(mapper -> {
+                    mapper.map(CadastroAgendamentoDto::getSala, AgendamentoPresencial::setSala);
+                    mapper.map(CadastroAgendamentoDto::getAndar, AgendamentoPresencial::setAndar);
+                });
 
+        // Mapeamento para exame
         modelMapper.typeMap(CadastroAgendamentoDto.class, Exame.class)
                 .addMappings(mapper -> {
                     mapper.map(CadastroAgendamentoDto::getTipoExame, Exame::setTipo);
@@ -40,11 +46,16 @@ public class ModelMapperProducer {
         // ================================================
         // ENTIDADE -> DTO (Agendamentos → DetalhesAgendamentosDto)
         // ================================================
+
         modelMapper.typeMap(AgendamentoOnline.class, DetalhesAgendamentosDto.class)
                 .addMapping(AgendamentoOnline::getLinkReuniao, DetalhesAgendamentosDto::setLink);
 
         modelMapper.typeMap(AgendamentoPresencial.class, DetalhesAgendamentosDto.class)
-                .addMapping(AgendamentoPresencial::getEndereco, DetalhesAgendamentosDto::setEndereco);
+                .addMappings(mapper -> {
+                    mapper.map(AgendamentoPresencial::getEndereco, DetalhesAgendamentosDto::setEndereco);
+                    mapper.map(AgendamentoPresencial::getSala, DetalhesAgendamentosDto::setSala);
+                    mapper.map(AgendamentoPresencial::getAndar, DetalhesAgendamentosDto::setAndar);
+                });
 
         modelMapper.typeMap(Exame.class, DetalhesAgendamentosDto.class)
                 .addMappings(mapper -> {

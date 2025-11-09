@@ -15,6 +15,25 @@ public class DetalhesAgendamentosDto {
     private String endereco;
     private String tipoExame;
     private String resultadoExame;
+    private Integer sala;
+    private Integer andar;
+
+    public Integer getSala() {
+        return sala;
+    }
+
+    public void setSala(Integer sala) {
+        this.sala = sala;
+    }
+
+    public Integer getAndar() {
+        return andar;
+    }
+
+    public void setAndar(Integer andar) {
+        this.andar = andar;
+    }
+
 
     // Getters e Setters
     public Integer getId() { return id; }
@@ -49,4 +68,5 @@ public class DetalhesAgendamentosDto {
 
     public String getResultadoExame() { return resultadoExame; }
     public void setResultadoExame(String resultadoExame) { this.resultadoExame = resultadoExame; }
+
 }

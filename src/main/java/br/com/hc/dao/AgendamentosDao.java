@@ -5,6 +5,7 @@ import br.com.hc.model.agendamento.*;
 import br.com.hc.model.paciente.Paciente;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import br.com.hc.model.agendamento.AgendamentoPresencial;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -200,8 +201,11 @@ public class AgendamentosDao {
                 ((AgendamentoOnline) ag).setLinkReuniao(rs.getString("link"));
             }
             case "PRESENCIAL" -> {
-                ag = new AgendamentoPresencial();
-                ((AgendamentoPresencial) ag).setEndereco(rs.getString("endereco"));
+                AgendamentoPresencial pres = new AgendamentoPresencial();
+                // O endereço é fixo (definido na classe)
+                pres.setSala(rs.getInt("sala"));
+                pres.setAndar(rs.getInt("andar"));
+                ag = pres;
             }
             case "EXAME" -> {
                 ag = new Exame();
