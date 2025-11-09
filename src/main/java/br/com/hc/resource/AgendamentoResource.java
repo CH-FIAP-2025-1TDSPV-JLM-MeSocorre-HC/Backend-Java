@@ -111,7 +111,7 @@ public class AgendamentoResource {
 
         Agendamentos agendamento;
 
-        // O ModelMapper agora já entende os campos específicos por tipo
+        // Escolhe o tipo com base no campo "tipo"
         switch (dto.getTipo().toUpperCase()) {
             case "ONLINE" -> agendamento = modelMapper.map(dto, AgendamentoOnline.class);
             case "PRESENCIAL" -> agendamento = modelMapper.map(dto, AgendamentoPresencial.class);
@@ -119,10 +119,15 @@ public class AgendamentoResource {
             default -> throw new IllegalArgumentException("Tipo de agendamento inválido: " + dto.getTipo());
         }
 
-        // Campos comuns
+        // 🟢 Ajuste importante: preencher os campos comuns manualmente
         agendamento.setPaciente(paciente);
+        agendamento.setTipo(dto.getTipo()); // <-- aqui adiciona o tipo corretamente
+        agendamento.setDataHora(dto.getDataHora());
+        agendamento.setNomeConsulta(dto.getNomeConsulta());
+        agendamento.setNomeProfissional(dto.getNomeProfissional());
+        agendamento.setMedico(dto.getMedico());
+
         return agendamento;
     }
-
 
 }

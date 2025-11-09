@@ -34,7 +34,7 @@ public class ModelMapperProducer {
         modelMapper.typeMap(CadastroAgendamentoDto.class, Exame.class)
                 .addMappings(mapper -> {
                     mapper.map(CadastroAgendamentoDto::getTipoExame, Exame::setTipo);
-                    mapper.map(CadastroAgendamentoDto::getResultadoExame, Exame::setResultado);
+                    mapper.map(CadastroAgendamentoDto::getResultadoExame, Exame::setResultadoExame);
                 });
 
         // ================================================
@@ -49,7 +49,7 @@ public class ModelMapperProducer {
         modelMapper.typeMap(Exame.class, DetalhesAgendamentosDto.class)
                 .addMappings(mapper -> {
                     mapper.map(Exame::getTipo, DetalhesAgendamentosDto::setTipoExame);
-                    mapper.map(Exame::getResultado, DetalhesAgendamentosDto::setResultadoExame);
+                    mapper.map(Exame::getResultadoExame, DetalhesAgendamentosDto::setResultadoExame);
                 });
 
         return modelMapper;

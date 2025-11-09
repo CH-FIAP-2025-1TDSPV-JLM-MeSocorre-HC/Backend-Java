@@ -1,36 +1,38 @@
 package br.com.hc.model.agendamento;
 
 import br.com.hc.model.paciente.Paciente;
-
 import java.time.LocalDateTime;
 
 public class Exame extends Agendamentos {
-    private String resultado;
-    private String tipo;
+    private String resultadoExame;
+    private String tipoExame;
 
     public Exame() {
+        setTipo("EXAME");
     }
 
-    public Exame(Integer id, String medico, LocalDateTime dataHora, String nomeConsulta, String nomeProfissional, Paciente paciente, String resultado, String tipo) {
+    public Exame(Integer id, String medico, LocalDateTime dataHora,
+                 String nomeConsulta, String nomeProfissional,
+                 Paciente paciente, String tipoExame, String resultadoExame) {
         super(id, medico, dataHora, nomeConsulta, nomeProfissional, paciente);
-        this.resultado = resultado;
-        this.tipo = tipo;
+        setTipo("EXAME");
+        this.tipoExame = tipoExame;
+        this.resultadoExame = resultadoExame;
     }
 
-    public String getResultado() {
-        return resultado;
+    public String getResultadoExame() {
+        return resultadoExame;
     }
 
-    public void setResultado(String resultado) {
-        this.resultado = resultado;
+    public void setResultadoExame(String resultadoExame) {
+        this.resultadoExame = resultadoExame;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getTipoExame() {
+        return tipoExame;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setTipoExame(String tipoExame) {
+        this.tipoExame = tipoExame;
     }
 }
-

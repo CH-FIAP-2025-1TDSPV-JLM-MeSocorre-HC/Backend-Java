@@ -29,11 +29,12 @@ public class AgendamentosDao {
 
             PreparedStatement stmt = conexao.prepareStatement("""
                 INSERT INTO agendamentos (
-                    paciente_id, data_hora, tipo_agendamento,
+                    id, paciente_id, data_hora, tipo_agendamento,
                     nome_consulta, nome_profissional, medico,
                     link, endereco, tipo_exame, resultado_exame
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (agendamentos_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, new String[] {"id"});
+
 
             setarParametros(agendamento, stmt);
 
@@ -160,7 +161,7 @@ public class AgendamentosDao {
     private static void setarParametros(Agendamentos agendamento, PreparedStatement stmt) throws SQLException {
         stmt.setInt(1, agendamento.getPaciente().getId());
         stmt.setObject(2, agendamento.getDataHora());
-        stmt.setString(3, agendamento.getClass().getSimpleName().toUpperCase());
+        stmt.setString(3, agendamento.getTipo().toUpperCase());
         stmt.setString(4, agendamento.getNomeConsulta());
         stmt.setString(5, agendamento.getNomeProfissional());
         stmt.setString(6, agendamento.getMedico());
@@ -180,7 +181,7 @@ public class AgendamentosDao {
             stmt.setNull(7, Types.VARCHAR);
             stmt.setNull(8, Types.VARCHAR);
             stmt.setString(9, exame.getTipo());
-            stmt.setString(10, exame.getResultado());
+            stmt.setString(10, exame.getResultadoExame());
         } else {
             stmt.setNull(7, Types.VARCHAR);
             stmt.setNull(8, Types.VARCHAR);
@@ -194,21 +195,22 @@ public class AgendamentosDao {
         Agendamentos ag;
 
         switch (tipo.toUpperCase()) {
-            case "AGENDAMENTOONLINE" -> {
+            case "ONLINE" -> {
                 ag = new AgendamentoOnline();
                 ((AgendamentoOnline) ag).setLinkReuniao(rs.getString("link"));
             }
-            case "AGENDAMENTOPRESENCIAL" -> {
+            case "PRESENCIAL" -> {
                 ag = new AgendamentoPresencial();
                 ((AgendamentoPresencial) ag).setEndereco(rs.getString("endereco"));
             }
             case "EXAME" -> {
                 ag = new Exame();
                 ((Exame) ag).setTipo(rs.getString("tipo_exame"));
-                ((Exame) ag).setResultado(rs.getString("resultado_exame"));
+                ((Exame) ag).setResultadoExame(rs.getString("resultado_exame"));
             }
             default -> throw new SQLException("Tipo de agendamento desconhecido: " + tipo);
         }
+
 
         ag.setId(rs.getInt("id"));
         ag.setDataHora(rs.getObject("data_hora", LocalDateTime.class));

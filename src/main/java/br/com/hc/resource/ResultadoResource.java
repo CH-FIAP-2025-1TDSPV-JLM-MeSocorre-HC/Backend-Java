@@ -28,7 +28,7 @@ public class ResultadoResource {
                 .stream()
                 .filter(ag -> ag instanceof Exame)
                 .filter(ag -> ag.getPaciente().getId() == pacienteId) // Filtra pelo paciente
-                .filter(ag -> ((Exame) ag).getResultado() != null && !((Exame) ag).getResultado().isEmpty())
+                .filter(ag -> ((Exame) ag).getResultadoExame() != null && !((Exame) ag).getResultadoExame().isEmpty())
                 .map(ag -> {
                     DetalhesAgendamentosDto dto = new DetalhesAgendamentosDto();
                     dto.setId(ag.getId());
@@ -39,7 +39,7 @@ public class ResultadoResource {
                     dto.setNomeProfissional(ag.getNomeProfissional());
                     dto.setMedico(ag.getMedico());
                     dto.setTipoExame(((Exame) ag).getTipo());
-                    dto.setResultadoExame(((Exame) ag).getResultado());
+                    dto.setResultadoExame(((Exame) ag).getResultadoExame());
                     return dto;
                 })
                 .collect(Collectors.toList());
