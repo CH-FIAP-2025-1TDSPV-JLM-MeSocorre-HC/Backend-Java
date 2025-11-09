@@ -5,24 +5,24 @@ import br.com.hc.model.paciente.Paciente;
 import java.time.LocalDateTime;
 
 public class Exame extends Agendamentos {
-    private String resultadoExame;
+    private String resultado;
     private String tipo;
 
     public Exame() {
     }
 
-    public Exame(Integer id, String medico, LocalDateTime dataHora, String nomeConsulta, String nomeProfissional, Paciente paciente, String resultadoExame, String tipo) {
-        super(id, medico, dataHora, nomeConsulta, nomeProfissional, paciente);
-        this.resultadoExame = resultadoExame;
+    public Exame(Integer id, String medico, LocalDateTime dataHora, String nomeConsulta, String nomeProfissional, Paciente paciente, String resultado, String tipo) {
+        super(id, medico, dataHora, tipo, nomeConsulta, nomeProfissional, paciente);
+        this.resultado = resultado;
         this.tipo = tipo;
     }
 
-    public String getResultadoExame() {
-        return resultadoExame;
+    public String getResultado() {
+        return resultado;
     }
 
-    public void setResultadoExame(String resultadoExame) {
-        this.resultadoExame = resultadoExame;
+    public void setResultado(String resultado) {
+        this.resultado = resultado;
     }
 
     public String getTipo() {

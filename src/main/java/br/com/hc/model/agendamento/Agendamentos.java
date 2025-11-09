@@ -5,22 +5,24 @@ import br.com.hc.model.paciente.Paciente;
 
 public abstract class Agendamentos {
     private Integer id;
-    private String medico;
-    private LocalDateTime dataHora;
-    private String nomeConsulta;
-    private String nomeProfissional;
-    private Paciente paciente;
+    private Paciente paciente;         // representa paciente_id (FK)
+    private LocalDateTime dataHora;    // data_hora
+    private String tipoAgendamento;    // tipo_agendamento
+    private String nomeConsulta;       // nome_consulta
+    private String nomeProfissional;   // nome_profissional
+    private String medico;             // medico
 
     public Agendamentos() {
     }
 
-    public Agendamentos(Integer id, String medico, LocalDateTime dataHora, String nomeConsulta, String nomeProfissional, Paciente paciente) {
+    public Agendamentos(Integer id, String medico, LocalDateTime dataHora, String tipoAgendamento, String nomeConsulta, String nomeProfissional, Paciente paciente) {
         this.id = id;
         this.medico = medico;
         this.dataHora = dataHora;
         this.nomeConsulta = nomeConsulta;
         this.nomeProfissional = nomeProfissional;
         this.paciente = paciente;
+        this.tipoAgendamento = tipoAgendamento;
     }
 
     public Integer getId() {
@@ -45,6 +47,14 @@ public abstract class Agendamentos {
 
     public void setDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;
+    }
+
+    public String getTipoAgendamento() {
+        return tipoAgendamento;
+    }
+
+    public void setTipoAgendamento(String tipoAgendamento) {
+        this.tipoAgendamento = tipoAgendamento;
     }
 
     public String getNomeConsulta() {

@@ -1,26 +1,26 @@
-package br.com.hc.model.agendamento;
+    package br.com.hc.model.agendamento;
 
-import br.com.hc.model.paciente.Paciente;
-import java.time.LocalDateTime;
+    import br.com.hc.model.paciente.Paciente;
+    import java.time.LocalDateTime;
 
-public class AgendamentoOnline extends Agendamentos {
-    private String linkReuniao;
+    public class AgendamentoOnline extends Agendamentos {
+        private String link;
 
-    public AgendamentoOnline() {
+        public AgendamentoOnline() {
+        }
+
+        public AgendamentoOnline(Integer id, String medico, LocalDateTime dataHora,
+                                 String nomeConsulta, String nomeProfissional,
+                                 Paciente paciente, String link) {
+            super(id, medico, dataHora, link, nomeConsulta, nomeProfissional, paciente);
+            this.link = link;
+        }
+
+        public String getLinkReuniao() {
+            return link;
+        }
+
+        public void setLinkReuniao(String link) {
+            this.link = link;
+        }
     }
-
-    public AgendamentoOnline(Integer id, String medico, LocalDateTime dataHora,
-                             String nomeConsulta, String nomeProfissional,
-                             Paciente paciente, String linkReuniao) {
-        super(id, medico, dataHora, nomeConsulta, nomeProfissional, paciente);
-        this.linkReuniao = linkReuniao;
-    }
-
-    public String getLinkReuniao() {
-        return linkReuniao;
-    }
-
-    public void setLinkReuniao(String linkReuniao) {
-        this.linkReuniao = linkReuniao;
-    }
-}

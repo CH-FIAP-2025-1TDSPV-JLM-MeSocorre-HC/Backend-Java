@@ -5,37 +5,15 @@ import java.time.LocalDateTime;
 
 public class AgendamentoPresencial extends Agendamentos {
     private String endereco;
-    private String sala;
-    private String andar;
 
-    // ✅ Construtor vazio (necessário para frameworks)
     public AgendamentoPresencial() {
     }
 
-    // ✅ Construtor completo
     public AgendamentoPresencial(Integer id, String medico, LocalDateTime dataHora,
                                  String nomeConsulta, String nomeProfissional,
-                                 Paciente paciente, String sala, String andar, String endereco) {
-        super(id, medico, dataHora, nomeConsulta, nomeProfissional, paciente);
-        this.sala = sala;
-        this.andar = andar;
+                                 Paciente paciente, String endereco) {
+        super(id, medico, dataHora, endereco, nomeConsulta, nomeProfissional, paciente);
         this.endereco = endereco;
-    }
-
-    public String getSala() {
-        return sala;
-    }
-
-    public void setSala(String sala) {
-        this.sala = sala;
-    }
-
-    public String getAndar() {
-        return andar;
-    }
-
-    public void setAndar(String andar) {
-        this.andar = andar;
     }
 
     public String getEndereco() {
