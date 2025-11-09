@@ -12,7 +12,7 @@ public class AgendamentoPresencial extends Agendamentos {
     public AgendamentoPresencial(Integer id, String medico, LocalDateTime dataHora,
                                  String nomeConsulta, String nomeProfissional,
                                  Paciente paciente, String endereco) {
-        super(id, medico, dataHora, endereco, nomeConsulta, nomeProfissional, paciente);
+        super(id, medico, dataHora, nomeConsulta, nomeProfissional, paciente);
         this.endereco = endereco;
     }
 

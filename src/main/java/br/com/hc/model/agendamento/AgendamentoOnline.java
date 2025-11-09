@@ -12,7 +12,7 @@
         public AgendamentoOnline(Integer id, String medico, LocalDateTime dataHora,
                                  String nomeConsulta, String nomeProfissional,
                                  Paciente paciente, String link) {
-            super(id, medico, dataHora, link, nomeConsulta, nomeProfissional, paciente);
+            super(id, medico, dataHora, nomeConsulta, nomeProfissional, paciente);
             this.link = link;
         }
 

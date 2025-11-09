@@ -9,19 +9,9 @@ public class ErrorResponseDto {
         this.detalhe = detalhe;
     }
 
-    public String getErro() {
-        return erro;
-    }
+    public String getErro() { return erro; }
+    public void setErro(String erro) { this.erro = erro; }
 
-    public void setErro(String erro) {
-        this.erro = erro;
-    }
-
-    public String getDetalhe() {
-        return detalhe;
-    }
-
-    public void setDetalhe(String detalhe) {
-        this.detalhe = detalhe;
-    }
+    public String getDetalhe() { return detalhe; }
+    public void setDetalhe(String detalhe) { this.detalhe = detalhe; }
 }

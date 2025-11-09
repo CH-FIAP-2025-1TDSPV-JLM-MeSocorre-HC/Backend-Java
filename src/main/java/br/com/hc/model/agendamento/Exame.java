@@ -12,7 +12,7 @@ public class Exame extends Agendamentos {
     }
 
     public Exame(Integer id, String medico, LocalDateTime dataHora, String nomeConsulta, String nomeProfissional, Paciente paciente, String resultado, String tipo) {
-        super(id, medico, dataHora, tipo, nomeConsulta, nomeProfissional, paciente);
+        super(id, medico, dataHora, nomeConsulta, nomeProfissional, paciente);
         this.resultado = resultado;
         this.tipo = tipo;
     }

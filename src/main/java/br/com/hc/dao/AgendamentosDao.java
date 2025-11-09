@@ -1,15 +1,20 @@
 package br.com.hc.dao;
 
+// ... imports existentes
 import br.com.hc.exception.EntidadeNaoEncontradaException;
 import br.com.hc.model.agendamento.AgendamentoOnline;
 import br.com.hc.model.agendamento.AgendamentoPresencial;
 import br.com.hc.model.agendamento.Agendamentos;
 import br.com.hc.model.agendamento.Exame;
+import br.com.hc.model.paciente.Paciente;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,43 +25,11 @@ public class AgendamentosDao {
     @Inject
     private DataSource dataSource;
 
-    public void cadastrar(Agendamentos agendamento) throws SQLException {
-        try (Connection conexao = dataSource.getConnection()) {
+    @Inject
+    private PacienteDao pacienteDao; // Adicionar esta injeção
 
-            PreparedStatement stmt = conexao.prepareStatement("""
-                    INSERT INTO agendamentos (
-                        id, paciente_id, data_hora, tipo_agendamento,
-                        nome_consulta, nome_profissional, medico
-                    ) VALUES (
-                        agendamentos_seq.NEXTVAL, ?, ?, ?, ?, ?, ?
-                    )
-                    """, new String[]{"id"});
-
-            setarParametros(agendamento, stmt);
-            stmt.executeUpdate();
-
-            ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()) {
-                agendamento.setId(rs.getInt(1));
-            }
-        }
-    }
-
-    public Agendamentos buscar(int id) throws SQLException, EntidadeNaoEncontradaException {
-        try (Connection conexao = dataSource.getConnection()) {
-            PreparedStatement stmt = conexao.prepareStatement("""
-                    SELECT * FROM agendamentos WHERE id = ?
-                    """);
-            stmt.setInt(1, id);
-
-            ResultSet rs = stmt.executeQuery();
-            if (!rs.next())
-                throw new EntidadeNaoEncontradaException("Agendamento não encontrado.");
-
-            return parseAgendamento(rs);
-        }
-    }
-
+    // ... manter todos os métodos existentes
+    // Método existente - manter
     public List<Agendamentos> listar() throws SQLException {
         try (Connection conexao = dataSource.getConnection()) {
             PreparedStatement stmt = conexao.prepareStatement("""
@@ -72,52 +45,60 @@ public class AgendamentosDao {
         }
     }
 
-    public void atualizar(Agendamentos agendamento) throws SQLException, EntidadeNaoEncontradaException {
+    // NOVO: Listar apenas agendamentos do paciente específico
+    public List<Agendamentos> listarPorPaciente(int pacienteId) throws SQLException {
         try (Connection conexao = dataSource.getConnection()) {
             PreparedStatement stmt = conexao.prepareStatement("""
-                    UPDATE agendamentos SET
-                        paciente_id = ?, data_hora = ?, tipo_agendamento = ?,
-                        nome_consulta = ?, nome_profissional = ?, medico = ?
-                    WHERE id = ?
+                    SELECT * FROM agendamentos WHERE paciente_id = ?
                     """);
-            setarParametros(agendamento, stmt);
-            stmt.setInt(7, agendamento.getId());
+            stmt.setInt(1, pacienteId);
+            ResultSet rs = stmt.executeQuery();
 
-            if (stmt.executeUpdate() == 0)
-                throw new EntidadeNaoEncontradaException("Agendamento não existe para ser atualizado.");
+            List<Agendamentos> lista = new ArrayList<>();
+            while (rs.next()) {
+                lista.add(parseAgendamento(rs));
+            }
+            return lista;
         }
     }
 
-    public void deletar(int id) throws SQLException, EntidadeNaoEncontradaException {
+    // NOVO: Buscar agendamento específico do paciente (segurança)
+    public Agendamentos buscarPorPacienteEId(int pacienteId, int agendamentoId)
+            throws SQLException, EntidadeNaoEncontradaException {
         try (Connection conexao = dataSource.getConnection()) {
             PreparedStatement stmt = conexao.prepareStatement("""
-                    DELETE FROM agendamentos WHERE id = ?
+                    SELECT * FROM agendamentos WHERE id = ? AND paciente_id = ?
                     """);
-            stmt.setInt(1, id);
+            stmt.setInt(1, agendamentoId);
+            stmt.setInt(2, pacienteId);
 
-            if (stmt.executeUpdate() == 0)
-                throw new EntidadeNaoEncontradaException("Agendamento não encontrado para exclusão.");
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next())
+                throw new EntidadeNaoEncontradaException("Agendamento não encontrado.");
+
+            return parseAgendamento(rs);
         }
     }
 
-    private void setarParametros(Agendamentos agendamento, PreparedStatement stmt) throws SQLException {
-        stmt.setInt(1, agendamento.getPaciente().getId());
-        stmt.setObject(2, agendamento.getDataHora());
-        stmt.setString(3, agendamento.getClass().getSimpleName().toUpperCase()); // tipo_agendamento
-        stmt.setString(4, agendamento.getNomeConsulta());
-        stmt.setString(5, agendamento.getNomeProfissional());
-        stmt.setString(6, agendamento.getMedico());
-    }
 
     private Agendamentos parseAgendamento(ResultSet rs) throws SQLException {
         String tipo = rs.getString("tipo_agendamento");
         Agendamentos ag;
 
-        // decide qual classe concreta criar
         switch (tipo.toUpperCase()) {
-            case "ONLINE" -> ag = new AgendamentoOnline();
-            case "EXAME" -> ag = new Exame();
-            case "PRESENCIAL" -> ag = new AgendamentoPresencial();
+            case "AGENDAMENTOONLINE" -> {
+                ag = new AgendamentoOnline();
+                ((AgendamentoOnline) ag).setLinkReuniao(rs.getString("link"));
+            }
+            case "EXAME" -> {
+                ag = new Exame();
+                ((Exame) ag).setTipo(rs.getString("tipo_exame"));
+                ((Exame) ag).setResultado(rs.getString("resultado_exame"));
+            }
+            case "AGENDAMENTOPRESENCIAL" -> {
+                ag = new AgendamentoPresencial();
+                ((AgendamentoPresencial) ag).setEndereco(rs.getString("endereco"));
+            }
             default -> throw new SQLException("Tipo de agendamento desconhecido: " + tipo);
         }
 
@@ -126,6 +107,15 @@ public class AgendamentosDao {
         ag.setNomeConsulta(rs.getString("nome_consulta"));
         ag.setNomeProfissional(rs.getString("nome_profissional"));
         ag.setMedico(rs.getString("medico"));
+
+        // ✅ CORRIGIDO: Agora carrega o paciente usando PacienteDao
+        int pacienteId = rs.getInt("paciente_id");
+        Paciente paciente = pacienteDao.buscar(pacienteId);
+        if (paciente == null) {
+            throw new SQLException("Paciente com ID " + pacienteId + " não encontrado");
+        }
+        ag.setPaciente(paciente);
+
         return ag;
     }
 }
